@@ -10,3 +10,19 @@ timedatectl set-timezone <current-timzone>
 # recoverable missing keys
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138 0E98404D386FA1D9
 
+# mount internal storage for more storage. if dependencies installed here (python, openssl, etc) use this in
+# payload scripts to automount.
+udisk mount
+
+# sources looks like this. can maybe add 'contrib non-free to repos without it. stretch-backports is also a stretch.
+deb http://archive.debian.org/debian/ jessie-backports main
+deb-src http://archive.debian.org/debian/ jessie-backports main
+deb http://archive.debian.org/debian jessie main contrib non-free
+deb-src http://archive.debian.org/debian jessie main contrib non-free
+deb http://archive.debian.org/debian stretch main
+deb-src http://archive.debian.org/debian stretch main
+deb http://archive.debian.org/debian stretch-backports main
+deb-src http://archive.debian.org/debian stretch-backports main
+
+
+
