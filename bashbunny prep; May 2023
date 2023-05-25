@@ -1,9 +1,10 @@
+# May 25, 2023
 # Prepping new Bashbunny or from reset.
 # Commands in order.
  
 apt-get clean
 
-# setting time avoids some errors
+# setting date avoids some errors
 timedatectl set-time 'YYYY-MM-DD HH:MM:SS'
 timedatectl set-timezone <current-timzone>
 
@@ -14,15 +15,28 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138 0E9840
 # payload scripts to automount.
 udisk mount
 
-# sources looks like this. can maybe add 'contrib non-free to repos without it. stretch-backports is also a stretch.
-deb http://archive.debian.org/debian/ jessie-backports main
-deb-src http://archive.debian.org/debian/ jessie-backports main
-deb http://archive.debian.org/debian jessie main contrib non-free
-deb-src http://archive.debian.org/debian jessie main contrib non-free
-deb http://archive.debian.org/debian stretch main
-deb-src http://archive.debian.org/debian stretch main
-deb http://archive.debian.org/debian stretch-backports main
-deb-src http://archive.debian.org/debian stretch-backports main
+# script for amending sources. stretch-backports is a stretch.
+sources=("deb http://archive.debian.org/debian/ jessie-backports main"
+"deb-src http://archive.debian.org/debian/ jessie-backports main"
+"deb http://archive.debian.org/debian jessie main contrib non-free"
+"deb-src http://archive.debian.org/debian jessie main contrib non-free"
+"deb http://archive.debian.org/debian stretch main"
+"deb-src http://archive.debian.org/debian stretch main"
+"deb http://archive.debian.org/debian stretch-backports main"
+"deb-src http://archive.debian.org/debian stretch-backports main")
+for source in "${sources[@]}"; do
+    echo "$source" | tee -a /etc/apt/sources.list
+done
+
+# getting ready for python3 and openssl
+apt update && apt upgrade -y
+apt install build-essential libgdbm-dev libnss3-dev libffi-dev gcc --force-yes -y
+
+mkdir python3
+cd python3
+wget --no-check-certificate https://www.python.org/ftp/python/3.7.9/Python-3.7.9.tar.xz
+
+
 
 
 
