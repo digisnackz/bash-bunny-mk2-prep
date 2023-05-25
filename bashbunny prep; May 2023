@@ -1,0 +1,12 @@
+# Prepping new Bashbunny or from reset.
+# Commands in order.
+ 
+apt-get clean
+
+# setting time avoids some errors
+timedatectl set-time 'YYYY-MM-DD HH:MM:SS'
+timedatectl set-timezone <current-timzone>
+
+# recoverable missing keys
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138 0E98404D386FA1D9
+
