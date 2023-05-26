@@ -48,7 +48,28 @@ cd /root/sdisk/python3
 
 wget --no-check-certificate https://www.python.org/ftp/python/3.7.9/Python-3.9.16.tar.xz
 tar -xvf Python-3.9.16.tar.xz
+rm Python-3.9.16.tar.xz
 
+# check unpack
+cd Python-3.9.16
+
+cd /root/sdisk/python3
+mkdir openssl3_build
+wget --no-check-certificate https://www.openssl.org/source/openssl-3.0.0.tar.gz
+tar -xvf openssl-3.0.0.tar.gz
+rm openssl-3.0.0.tar.gz
+cd openssl-3.0.0
+
+# you can check where current openssl is installed with:
+find /etc/ -name openssl.cnf -printf "%h\n"
+
+# it's /etc/ssl. this goes in --openssldir=/
+./config --prefix=/root/sdisk/python3/openssl3_build --openssldir=/etc/ssl -Wl,-Bsymbolic-functions -fPIC shared
+
+# these take a while
+make
+make test
+make install
 
 
 
