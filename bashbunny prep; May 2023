@@ -16,6 +16,12 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138 0E9840
 # format sdcard to fat32, we may also create two partitions
 # one for storage one for a swapfile. swap fat32, storage ext4
 mount /dev/mmcblk0p1 /mount/point
+mkswap /dev/mmcblk0p5
+blkid
+nano /etc/fstab
+
+# input this into fstab X's being your UUID 
+# UUID=XXXXXXx-xXXXX-XXXX none swap sw,pri=5 0 0
 
 
 # script for amending sources. stretch-backports is a stretch.
@@ -35,10 +41,15 @@ done
 apt update && apt upgrade -y
 apt install build-essential libgdbm-dev libnss3-dev libffi-dev gcc --force-yes -y
 
-mkdir /root/udisk/python3
-cd /root/udisk/python3
+mkdir /root/sdisk
+cd /root/sdisk
+mkdir /root/sdisk/python3
+cd /root/sdisk/python3
+
 wget --no-check-certificate https://www.python.org/ftp/python/3.7.9/Python-3.9.16.tar.xz
-tar --no-same-owner --no-same-permissions Python-3.9.16
+tar -xvf Python-3.9.16.tar.xz
+
+
 
 
 
