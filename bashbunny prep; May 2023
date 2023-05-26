@@ -15,7 +15,7 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138 0E9840
 # we will have to mount external storage for more space on bb
 # format sdcard to fat32, we may also create two partitions
 # one for storage one for a swapfile. swap fat32, storage ext4
-mount /dev/mmcblk0p1 /mount/point
+mount /dev/mmcblk0p1 /root/sdisk
 mkswap /dev/mmcblk0p5
 blkid
 nano /etc/fstab
