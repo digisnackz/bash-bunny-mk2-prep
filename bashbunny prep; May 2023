@@ -11,9 +11,12 @@ timedatectl set-timezone <current-timzone>
 # recoverable missing keys
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138 0E98404D386FA1D9
 
-# mount internal storage for more storage. if dependencies installed here (python, openssl, etc) use this in
-# payload scripts to automount.
-udisk mount
+# nandf is vfat, mountable but not compatible with installing apps
+# we will have to mount external storage for more space on bb
+# format sdcard to fat32, we may also create two partitions
+# one for storage one for a swapfile.
+mount /dev/mmcblk0p1 /mount/point
+
 
 # script for amending sources. stretch-backports is a stretch.
 sources=("deb http://archive.debian.org/debian/ jessie-backports main"
@@ -32,10 +35,10 @@ done
 apt update && apt upgrade -y
 apt install build-essential libgdbm-dev libnss3-dev libffi-dev gcc --force-yes -y
 
-mkdir python3
-cd python3
-wget --no-check-certificate https://www.python.org/ftp/python/3.7.9/Python-3.7.9.tar.xz
-
+mkdir /root/udisk/python3
+cd /root/udisk/python3
+wget --no-check-certificate https://www.python.org/ftp/python/3.7.9/Python-3.9.16.tar.xz
+tar --no-same-owner --no-same-permissions Python-3.9.16
 
 
 
