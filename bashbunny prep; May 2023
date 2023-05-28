@@ -39,7 +39,7 @@ done
 
 # getting ready for python3 and openssl
 apt update && apt upgrade -y
-apt install build-essential libgdbm-dev libnss3-dev libffi-dev gcc --force-yes -y
+apt install build-essential libgdbm-dev libnss3-dev libffi-dev gcc pkg-config --force-yes -y
 
 mkdir /root/sdisk
 cd /root/sdisk
@@ -62,19 +62,17 @@ cd openssl-3.0.0
 
 # you can check where current openssl is installed with:
 find /etc/ -name openssl.cnf -printf "%h\n"
-
 # it's /etc/ssl. this goes in --openssldir=/
 ./config --prefix=/root/sdisk/python3/openssl3_build --openssldir=/etc/ssl -Wl,-Bsymbolic-functions -fPIC shared
 
 # these take a while
 make
-
-# still installs if certs expired
+# will still install if certs expired
 make test
-
 make install
 
 cd /root/sdisk/python3/Python3.9.1
+
 # Setup.dist file below may be named just Setup
 nano /Modules/Setup.dist
 
@@ -126,6 +124,15 @@ source /etc/profile
 # check for rustc
 rustc --version
 
+nano /etc/ld.so.conf.d/openssl-3.0.0.conf
+# add
+/root/sdisk/python3/openssl3_build/lib
+# save and exit
+ldconfig -v
+
+pip3 install cryptography==35.0.0
+
+pip3 install pyopenssl
 
 
 
