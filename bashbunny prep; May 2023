@@ -68,8 +68,64 @@ find /etc/ -name openssl.cnf -printf "%h\n"
 
 # these take a while
 make
+
+# still installs if certs expired
 make test
+
 make install
+
+cd /root/sdisk/python3/Python3.9.1
+# Setup.dist file below may be named just Setup
+nano /Modules/Setup.dist
+
+# remove the hashes fro
+_socket socketmodule.c
+SSL=/root/sdisk/python3/openssl3_build
+_ssl _ssl.c
+        -DUSE_SSL -I$(SSL)/include -I$(SSL)/include/openssl
+        -L$(SSL)/lib -lssl -lcrypto
+
+# save and exit
+
+cp /Modules/Setup /Modules/Setup.org
+cp /Modules/Setup /Modules/Setup.dist
+nano /etc/ld.so.conf
+# add this
+/root/sdisk/python3/openssl3_build/lib/
+ldconfig
+cd /root/sdisk/python3/Python-3.9.16
+./configure --enable-optimizations
+
+# if you see creating makefile at the end of config then continue
+make install
+
+# do a check of your packages
+python3 --version
+python3
+# no errors on ssl check you're good
+import ssl
+pip3 -V
+python3.9 -m pip install --upgrade pip
+
+# install rustc 
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+nano /etc/profile
+# change this line
+# export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/usr/local/bunny/bin:/tools
+# to
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/usr/local/bunny/bin:/tools:/root/.cargo/bin:/root/sdisk/python3/openssl3_build/bin
+# and add 
+export RUSTUP_HOME=/root/.rustup
+export CARGO_HOME=/root/.cargo
+export CFLAGS="-I/root/sdisk/python3/openssl3_build/include"
+export LDFLAGS="-L/root/sdisk/python3/openssl3_build/lib"
+# save and exit
+source /etc/profile
+
+# check for rustc
+rustc --version
+
 
 
 
