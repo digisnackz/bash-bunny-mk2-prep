@@ -150,4 +150,9 @@ pip3 install pyopenssl
 python3.9 -m pip install impacket --target /tools
 python3.9 -m pip install responder --target /tools
 
+# to automatically mount sdcard
+nano /etc/fstab
+
+# insert this at the end somewhere
+/dev/mmcblk0p1 /root/sdisk auto defaults 0 0
 
