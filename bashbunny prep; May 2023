@@ -1,7 +1,7 @@
 # May 25, 2023
-# Prepping new Bashbunny Mk2, or off reset.
+# Prepping new Bashbunny Mk2, or off reset. 
 # Commands in order.
- 
+# Bash Bunny Mk 2
 apt-get clean
 
 # setting date avoids some errors
