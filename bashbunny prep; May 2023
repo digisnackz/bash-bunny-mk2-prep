@@ -108,6 +108,14 @@ python3.9 -m pip install --upgrade pip
 # install rustc 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
+# lets create some more storage because we run out around the cryptography install.
+# your paths might differ, so find out where these are located.
+rm -rf $HOME/.cargo/doc
+rm -rf $HOME/.rustup/toolchains/*/share/doc/rust
+rm -rf /usr/share/man/man1/rustup*.1.gz
+rm -rf /usr/share/man/man1/cargo*.1.gz
+rm -rf /usr/share/man/man1/rust*.1.gz
+
 nano /etc/profile
 # change this line
 # export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/usr/local/bunny/bin:/tools
@@ -130,11 +138,16 @@ nano /etc/ld.so.conf.d/openssl-3.0.0.conf
 # save and exit
 ldconfig -v
 
-pip3 install cryptography==35.0.0
+# dependencies for impacket and responder
+pip3 install wheel 'setuptools>=58.5.3' 'setuptools-rust>=0.11.4' chardet pycryptodomex 'pyasn1>=0.2.3 'ldap3>=2.5,!=2.5.2,!=2.5.0,!=2.6' 
+future 'ldapdomaindump>=0.9.0' 'flask>=1.0' 'cffi>=1.12' virtualenv netifaces
+
+pip3 install cryptography==35.0.0 
 
 pip3 install pyopenssl
 
-
-
+# then here it is~ 
+python3.9 -m pip install impacket --target /tools
+python3.9 -m pip install responder --target /tools
 
 
