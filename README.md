@@ -1,3 +1,6 @@
+Note: this is a good start on how to install python and openssl, up until crytography and impacket. Payloads are still
+being tested.
+
 # bbmk2
 trials
 
