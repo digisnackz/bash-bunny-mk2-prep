@@ -1,5 +1,10 @@
 # May 25, 2023
 # Prepping new Bashbunny Mk2, or off reset. 
+# instructions to run with sd card being used 
+# as storage. instead, you can sort all the docs and
+# manuals on bashbunny and delete them for the same
+# result. if you get stuck installing rust use a swapfile 
+# for RAM.
 # Commands in order.
 # Bash Bunny Mk 2
 apt-get clean
