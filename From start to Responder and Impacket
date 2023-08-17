@@ -1,6 +1,6 @@
 # May 25, 2023
 # Last updated Aug 17, 2023
-# Read the README.md.
+# Read the README.md
 #
 # Commands are executed down the line in order.
 # Bash Bunny Mk 2
@@ -18,6 +18,9 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138 0E9840
 # format sdcard to fat32, we may also create two partitions
 # one for storage one for a swapfile. swap fat32, storage ext4
 
+# Better to make swapfile and not need it, then need it. I've almost always needed one on
+# install rustc for some reason.
+
 mount /dev/mmcblk0p1 /root/sdisk
 mkswap /dev/mmcblk0p5
 blkid
@@ -27,7 +30,8 @@ nano /etc/fstab
 UUID=XXXXXXx-xXXXX-XXXX none swap sw,pri=5 0 0
 
 
-# script for amending sources. stretch-backports is a stretch.
+# Script to streamline fixing sources. Made after too many resets.
+
 sources=("deb http://archive.debian.org/debian/ jessie-backports main"
 "deb-src http://archive.debian.org/debian/ jessie-backports main"
 "deb http://archive.debian.org/debian jessie main contrib non-free"
@@ -167,4 +171,4 @@ nano /etc/fstab
 # insert this at the end somewhere
 /dev/mmcblk0p1 /root/sdisk auto defaults 0 0
 
-# at this point both packages are ready to use.
+# at this point both packages are ready for use. These can be installed from source too, but this worked for me.
