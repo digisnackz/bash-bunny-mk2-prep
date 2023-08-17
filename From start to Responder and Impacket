@@ -1,12 +1,8 @@
 # May 25, 2023
-# Prepping new Bashbunny Mk2, or off fresh reset. bash bunny mk 2 ships with debian jessie
-# out the box so the struggle is real. everything is deprecated.
-# instructions to run with sd card being used 
-# as storage. instead, you can sort all the docs and
-# manuals on bashbunny and delete them for the same
-# result. if you get stuck installing rust use a swapfile 
-# for RAM.
-# Commands in order.
+# Last updated Aug 17, 2023
+# Read the README.md.
+#
+# Commands are executed down the line in order.
 # Bash Bunny Mk 2
 apt-get clean
 
@@ -21,6 +17,7 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138 0E9840
 # we will have to mount external storage for more space on bb
 # format sdcard to fat32, we may also create two partitions
 # one for storage one for a swapfile. swap fat32, storage ext4
+
 mount /dev/mmcblk0p1 /root/sdisk
 mkswap /dev/mmcblk0p5
 blkid
@@ -96,19 +93,23 @@ _ssl _ssl.c
 cp /Modules/Setup /Modules/Setup.org
 cp /Modules/Setup /Modules/Setup.dist
 nano /etc/ld.so.conf
-# add this
+
+# add this next line to ld.so.conf
 /root/sdisk/python3/openssl3_build/lib/
+# then run
 ldconfig
+
 cd /root/sdisk/python3/Python-3.9.16
 ./configure --enable-optimizations
 
-# if you see creating makefile at the end of config then continue
+# if you see creating makefile at the end of configuration, install
 make install
 
-# do a check of your packages
+# double check version
 python3 --version
 python3
-# no errors on ssl check you're good
+
+# no errors on output of 'import ssl' then continue
 import ssl
 pip3 -V
 python3.9 -m pip install --upgrade pip
@@ -141,9 +142,12 @@ source /etc/profile
 rustc --version
 
 nano /etc/ld.so.conf.d/openssl-3.0.0.conf
-# add
+
+# add to openssl-3.0.0.conf
 /root/sdisk/python3/openssl3_build/lib
 # save and exit
+
+# run
 ldconfig -v
 
 # dependencies for impacket and responder
