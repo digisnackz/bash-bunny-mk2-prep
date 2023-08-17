@@ -1,5 +1,6 @@
 # May 25, 2023
-# Prepping new Bashbunny Mk2, or off reset. 
+# Prepping new Bashbunny Mk2, or off fresh reset. bash bunny mk 2 ships with debian jessie
+# out the box so the struggle is real. everything is deprecated.
 # instructions to run with sd card being used 
 # as storage. instead, you can sort all the docs and
 # manuals on bashbunny and delete them for the same
@@ -162,4 +163,4 @@ nano /etc/fstab
 # insert this at the end somewhere
 /dev/mmcblk0p1 /root/sdisk auto defaults 0 0
 
-# at this point both packages are ready to use, make some payloads
+# at this point both packages are ready to use.
