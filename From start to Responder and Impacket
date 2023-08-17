@@ -9,11 +9,11 @@
 # Bash Bunny Mk 2
 apt-get clean
 
-# setting date avoids some errors
+# setting date avoids some errors, change these to actual time
 timedatectl set-time 'YYYY-MM-DD HH:MM:SS'
 timedatectl set-timezone <current-timzone>
 
-# recoverable missing keys
+# recovering missing keys
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138 0E98404D386FA1D9
 
 # nandf is vfat, mountable but not compatible with installing apps
@@ -26,7 +26,7 @@ blkid
 nano /etc/fstab
 
 # input this into fstab X's being your UUID 
-# UUID=XXXXXXx-xXXXX-XXXX none swap sw,pri=5 0 0
+UUID=XXXXXXx-xXXXX-XXXX none swap sw,pri=5 0 0
 
 
 # script for amending sources. stretch-backports is a stretch.
@@ -51,6 +51,8 @@ cd /root/sdisk
 mkdir /root/sdisk/python3
 cd /root/sdisk/python3
 
+# latest responder and impacket confirmed working with python 3.9 and future proof at
+# least if either app updates
 wget --no-check-certificate https://www.python.org/ftp/python/3.9.16/Python-3.9.16.tar.xz
 tar -xvf Python-3.9.16.tar.xz
 rm Python-3.9.16.tar.xz
@@ -78,10 +80,10 @@ make install
 
 cd /root/sdisk/python3/Python3.9.1
 
-# Setup.dist file below may be named just Setup
+# Setup.dist file below may be named just Setup.
 nano /Modules/Setup.dist
 
-# remove the hashes fro
+# remove the hashes in front of these lines and leave indentation.
 _socket socketmodule.c
 SSL=/root/sdisk/python3/openssl3_build
 _ssl _ssl.c
@@ -160,3 +162,4 @@ nano /etc/fstab
 # insert this at the end somewhere
 /dev/mmcblk0p1 /root/sdisk auto defaults 0 0
 
+# at this point both packages are ready to use, make some payloads
